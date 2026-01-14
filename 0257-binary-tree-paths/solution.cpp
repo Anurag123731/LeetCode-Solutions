@@ -1,21 +1,21 @@
 class Solution {
 public:
-    void treepaths(TreeNode* root,string s,vector<string>&v){
-        if(root==NULL) return;
-        if(root->left==NULL && root->right==NULL){
-            s+=to_string(root->val);
-            v.push_back(s);
-            return;
-        };
-        s+=to_string(root->val);
-        s+="->";
-        treepaths(root->left,s,v);
-        treepaths(root->right,s,v);
+void helper(TreeNode*root,vector<string>&ans,string s){
+    if(root->left==NULL && root->right==NULL){
+        ans.push_back(s);
+        return ;
     }
+    if(root->left) helper(root->left,ans,s+"->"+to_string(root->left->val));
+    if(root->right) helper(root->right,ans,s+"->"+to_string(root->right->val));
+    return;
+}
     vector<string> binaryTreePaths(TreeNode* root) {
-        vector<string>v;
-        string s="";
-        treepaths(root,s,v);
-        return v;
+        vector<string>ans;
+        string s=to_string(root->val);
+        helper(root,ans,s);
+        return ans;
+
+
+
     }
 };
